@@ -1,0 +1,94 @@
+classDiagram
+    class Ferme {
+        +int id_ferme
+        +string nom
+        +string region
+        +float pluviometrie_mm_an
+        +string type_sol
+        +string date_creation
+    }
+    class Variete {
+        +int id
+        +int id_ferme
+        +string nom
+        +int nombre_arbres
+        +float espacement_inter_rang_m
+        +float espacement_intra_rang_m
+        +float rendement_attendu_kg
+        +float rendement_reel_kg
+        +string vigueur
+        +string bloc_parcelle
+        +string origine_plant
+        +string source
+        +string date_maj
+    }
+    class CalendrierCroissance {
+        +int id
+        +int id_ferme
+        +string bloc_parcelle
+        +string date_plantation
+        +string stade_actuel
+        +string phase_annees
+        +float pluviometrie_locale_mm
+        +string source
+        +string date_maj
+    }
+    class InventaireEngrais {
+        +int id
+        +int id_ferme
+        +string bloc_parcelle
+        +string type_engrais
+        +float quantite_stock_kg
+        +float seuil_alerte_kg
+        +string date_reapprovisionnement
+        +float quantite_appliquee_kg
+        +string fournisseur
+        +string responsable_application
+        +string methode_application
+        +string source
+        +string date_maj
+    }
+    class SanteMaladies {
+        +int id
+        +int id_ferme
+        +string bloc_parcelle
+        +float indicateur_sante_pct
+        +string type_maladie_parasite
+        +string date_observation
+        +string statut_traitement
+        +string responsable_observation
+        +string methode_surveillance
+        +string source
+        +string date_maj
+    }
+    class Recolte {
+        +int id
+        +int id_ferme
+        +string bloc_parcelle
+        +string id_lot
+        +string statut_maturite
+        +string date_recolte_estimee
+        +string date_recolte_reelle
+        +float quantite_recoltee_kg
+        +string source
+        +string date_maj
+    }
+    class Pepiniere {
+        +int id
+        +int id_ferme
+        +string bloc_parcelle
+        +int nombre_jeunes_plants
+        +string stade_developpement
+        +string date_prevue_transplantation
+        +float taux_survie_pct
+        +string origine_plant
+        +string source
+        +string date_maj
+    }
+
+    Ferme "1" --> "0..*" Variete : possede
+    Ferme "1" --> "0..*" CalendrierCroissance : possede
+    Ferme "1" --> "0..*" InventaireEngrais : possede
+    Ferme "1" --> "0..*" SanteMaladies : possede
+    Ferme "1" --> "0..*" Recolte : possede
+    Ferme "1" --> "0..*" Pepiniere : possede
