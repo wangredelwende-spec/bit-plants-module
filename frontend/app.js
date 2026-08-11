@@ -32,7 +32,8 @@ function handleRoute() {
     'fertilizers': 'screen-fertilizers',
     'diseases': 'screen-diseases',
     'harvest': 'screen-harvest',
-    'nursery': 'screen-nursery'
+    'nursery': 'screen-nursery',
+    'whatif': 'screen-whatif'
   };
 
   const targetId = routes[hash] || 'screen-dashboard';
@@ -43,6 +44,15 @@ function handleRoute() {
   if (target) {
     target.classList.add('active');
   }
+
+  // Highlight active link in navbar
+  document.querySelectorAll('.app-nav__link').forEach(link => {
+    if (link.dataset.route === hash) {
+      link.classList.add('active');
+    } else {
+      link.classList.remove('active');
+    }
+  });
 
   // Scroll to top
   window.scrollTo(0, 0);
@@ -91,18 +101,40 @@ function filterByBloc(select) {
     const colIndex = findBlocColumnIndex(table);
     if (colIndex === -1) return; // No "Bloc" column in this table
 
-    const rows = table.querySelectorAll('tbody tr');
+    const tbody = table.querySelector('tbody');
+    let visibleRows = 0;
+
+    const rows = tbody.querySelectorAll('tr:not(.empty-state-row)');
     rows.forEach(row => {
       if (showAll) {
         row.style.display = '';
+        visibleRows++;
         return;
       }
       const cell = row.cells[colIndex];
       if (!cell) return;
       const cellText = cell.textContent.trim();
-      // Match "Block A", but also "Block A — Tree #42"
-      row.style.display = cellText.includes(value) ? '' : 'none';
+      const isMatch = cellText.includes(value);
+      row.style.display = isMatch ? '' : 'none';
+      if (isMatch) visibleRows++;
     });
+
+    // Handle empty state
+    let emptyRow = tbody.querySelector('.empty-state-row');
+    if (visibleRows === 0) {
+      if (!emptyRow) {
+        emptyRow = document.createElement('tr');
+        emptyRow.className = 'empty-state-row';
+        const colsCount = table.querySelectorAll('thead th').length;
+        emptyRow.innerHTML = `<td colspan="${colsCount}" style="text-align: center; color: var(--gray-500); font-style: italic; padding: var(--space-xl);">No data for ${value} on this screen.</td>`;
+        tbody.appendChild(emptyRow);
+      } else {
+        emptyRow.querySelector('td').textContent = `No data for ${value} on this screen.`;
+        emptyRow.style.display = '';
+      }
+    } else if (emptyRow) {
+      emptyRow.style.display = 'none';
+    }
   });
 
   // Also filter health cards on the diseases screen
@@ -119,6 +151,61 @@ function filterByBloc(select) {
     });
   }
 }
+
+/**
+ * Navigate to the Diseases screen and filter by a specific block
+ * @param {string} blockName - The name of the block (e.g., "Block A")
+ */
+function goToDiseasesForBlock(blockName) {
+  navigateTo('diseases');
+  
+  // Need a tiny timeout to ensure the DOM is visible before applying filters if necessary,
+  // but since it's static we can just find it directly.
+  const screen = document.getElementById('screen-diseases');
+  const select = screen.querySelector('.filter-bar select');
+  if (select) {
+    select.value = blockName;
+    filterByBloc(select);
+  }
+}
+
+// Expose globally
+window.goToDiseasesForBlock = goToDiseasesForBlock;
+
+/**
+ * Highlight a specific trend line in the SVG chart on the dashboard
+ * @param {string} blockId - The block identifier (e.g., 'A', 'B', 'C', 'D')
+ */
+function highlightTrendLine(blockId) {
+  const allLines = document.querySelectorAll('.trend-chart-line');
+  if (!allLines.length) return;
+  
+  allLines.forEach(line => {
+    line.style.opacity = '0.2';
+    line.classList.remove('highlight');
+  });
+  
+  const targetLine = document.getElementById(`trend-line-${blockId}`);
+  if (targetLine) {
+    targetLine.style.opacity = '1';
+    targetLine.classList.add('highlight');
+  }
+}
+
+/**
+ * Unhighlight all trend lines in the SVG chart
+ */
+function unhighlightTrendLines() {
+  const allLines = document.querySelectorAll('.trend-chart-line');
+  allLines.forEach(line => {
+    line.style.opacity = '1';
+    line.classList.remove('highlight');
+  });
+}
+
+// Expose globally
+window.highlightTrendLine = highlightTrendLine;
+window.unhighlightTrendLines = unhighlightTrendLines;
 
 
 /* ========================================================================
@@ -188,3 +275,112 @@ window.addEventListener('DOMContentLoaded', () => {
     th.addEventListener('click', () => sortTable(th));
   });
 });
+
+/* ========================================================================
+   5. What-If Scenario Rendering
+   ======================================================================== */
+// Note: These are illustrative projections, not validated agronomic or financial forecasts.
+function renderWhatIfScenarios() {
+  const container = document.getElementById('whatif-scenarios-container');
+  if (!container) return;
+
+  const baseline = {
+    trees: 200,
+    yieldKg: 44000,
+    costPerKg: 0.22,
+    investment: 171512,
+    revenue: 39918,
+    roi: 16.34 // percentage
+  };
+
+  const scenarios = [
+    { label: "Scenario 1: +10% yield", yieldDelta: 0.10, investmentDelta: 0.05 },
+    { label: "Scenario 2: +20% yield", yieldDelta: 0.20, investmentDelta: 0.10 },
+    { label: "Scenario 3: +30% yield", yieldDelta: 0.30, investmentDelta: 0.15 }
+  ];
+
+  let html = '';
+
+  scenarios.forEach(s => {
+    const sYield = baseline.yieldKg * (1 + s.yieldDelta);
+    const sRevenue = baseline.revenue * (1 + s.yieldDelta);
+    const sInvestment = baseline.investment * (1 + s.investmentDelta);
+    
+    // Calculate delta values
+    const deltaYield = sYield - baseline.yieldKg;
+    const deltaRevenue = sRevenue - baseline.revenue;
+    const deltaInvestment = sInvestment - baseline.investment;
+    
+    // Illustrative ROI calculation
+    const sProfit = sRevenue - (sYield * baseline.costPerKg);
+    const sRoi = (sProfit / sInvestment) * 100;
+    const deltaRoi = sRoi - baseline.roi;
+
+    const fmt = (num) => new Intl.NumberFormat('en-US').format(Math.round(num));
+    const fmtCur = (num) => fmt(num) + ' €';
+    const fmtPct = (num) => (num > 0 ? '+' : '') + num.toFixed(2) + '%';
+    
+    // Helper to generate delta UI using the requested pastel bg + left border + colored text
+    const getDeltaUI = (val, isCost = false) => {
+      let colorClass = 'task-card--amber';
+      let textColor = 'var(--amber)';
+      if (val > 0) {
+        colorClass = isCost ? 'task-card--red' : 'task-card--green';
+        textColor = isCost ? 'var(--red)' : 'var(--green)';
+      } else if (val < 0) {
+        colorClass = isCost ? 'task-card--green' : 'task-card--red';
+        textColor = isCost ? 'var(--green)' : 'var(--red)';
+      }
+      
+      let displayVal = val;
+      if (typeof val === 'number') {
+        displayVal = (val > 0 ? '+' : '') + fmt(val);
+      }
+      
+      // Inline styles to override card defaults like padding, box-shadow, transform
+      return `<div class="task-card ${colorClass}" style="padding: 2px 8px; margin-top: 4px; font-size: var(--font-sm); box-shadow: none; cursor: default; display: inline-block; width: auto; flex: none; transform: none; color: ${textColor}; font-weight: 600; border-radius: var(--radius-sm);">
+        ${displayVal}
+      </div>`;
+    };
+
+    html += `
+      <div class="widget">
+        <h4 style="font-size: var(--font-lg); margin-bottom: var(--space-md);">${s.label}</h4>
+        <ul class="widget__list">
+          <li class="widget__list-item" style="flex-direction: column; align-items: flex-start;">
+            <div style="display: flex; justify-content: space-between; width: 100%;">
+              <span>Projected Yield</span>
+              <span style="font-weight: 600;">${fmt(sYield)} kg</span>
+            </div>
+            ${getDeltaUI('+' + fmt(deltaYield) + ' kg', false)}
+          </li>
+          <li class="widget__list-item" style="flex-direction: column; align-items: flex-start;">
+            <div style="display: flex; justify-content: space-between; width: 100%;">
+              <span>Projected Revenue</span>
+              <span style="font-weight: 600;">${fmtCur(sRevenue)}</span>
+            </div>
+            ${getDeltaUI('+' + fmtCur(deltaRevenue), false)}
+          </li>
+          <li class="widget__list-item" style="flex-direction: column; align-items: flex-start;">
+            <div style="display: flex; justify-content: space-between; width: 100%;">
+              <span>Est. Addt'l Investment</span>
+              <span style="font-weight: 600;">${fmtCur(sInvestment)}</span>
+            </div>
+            ${getDeltaUI('+' + fmtCur(deltaInvestment), true)}
+          </li>
+          <li class="widget__list-item" style="flex-direction: column; align-items: flex-start; border-bottom: none;">
+            <div style="display: flex; justify-content: space-between; width: 100%;">
+              <span>Resulting ROI</span>
+              <span style="font-weight: 600;">${sRoi.toFixed(2)}%</span>
+            </div>
+            ${getDeltaUI(fmtPct(deltaRoi), false)}
+          </li>
+        </ul>
+      </div>
+    `;
+  });
+
+  container.innerHTML = html;
+}
+
+window.addEventListener('DOMContentLoaded', renderWhatIfScenarios);
