@@ -352,6 +352,229 @@
           </div>
         </aside>
       </div>
+
+      <div class="trend-widget">
+        <div class="trend-widget__chart-container">
+          <h3 class="widget__title">Health Score Trend (7 Days)</h3>
+          <svg class="trend-widget__chart-svg" viewBox="0 0 900 220" preserveAspectRatio="none">
+            <defs>
+              <linearGradient id="area-A" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="var(--green)" stop-opacity="0.15"/>
+                <stop offset="100%" stop-color="var(--green)" stop-opacity="0"/>
+              </linearGradient>
+              <linearGradient id="area-B" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="var(--green-light)" stop-opacity="0.15"/>
+                <stop offset="100%" stop-color="var(--green-light)" stop-opacity="0"/>
+              </linearGradient>
+              <linearGradient id="area-C" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="var(--amber)" stop-opacity="0.15"/>
+                <stop offset="100%" stop-color="var(--amber)" stop-opacity="0"/>
+              </linearGradient>
+              <linearGradient id="area-D" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="var(--red)" stop-opacity="0.15"/>
+                <stop offset="100%" stop-color="var(--red)" stop-opacity="0"/>
+              </linearGradient>
+            </defs>
+            <!-- Grid lines -->
+            <line x1="40" y1="50" x2="900" y2="50" class="trend-chart-grid" />
+            <line x1="40" y1="100" x2="900" y2="100" class="trend-chart-grid" />
+            <line x1="40" y1="150" x2="900" y2="150" class="trend-chart-grid" />
+            <line x1="40" y1="200" x2="900" y2="200" class="trend-chart-grid" />
+            
+            <!-- Vertical Grid lines -->
+            <line x1="40" y1="20" x2="40" y2="200" class="trend-chart-grid" />
+            <line x1="183" y1="20" x2="183" y2="200" class="trend-chart-grid" />
+            <line x1="326" y1="20" x2="326" y2="200" class="trend-chart-grid" />
+            <line x1="470" y1="20" x2="470" y2="200" class="trend-chart-grid" />
+            <line x1="613" y1="20" x2="613" y2="200" class="trend-chart-grid" />
+            <line x1="756" y1="20" x2="756" y2="200" class="trend-chart-grid" />
+            <line x1="900" y1="20" x2="900" y2="200" class="trend-chart-grid" />
+
+            <!-- Y-Axis Labels -->
+            <text x="0" y="54" class="trend-chart-label">75%</text>
+            <text x="0" y="104" class="trend-chart-label">50%</text>
+            <text x="0" y="154" class="trend-chart-label">25%</text>
+            <text x="0" y="204" class="trend-chart-label">0%</text>
+
+            <!-- X-Axis Labels (Days) -->
+            <text x="30" y="215" class="trend-chart-label">Mon</text>
+            <text x="173" y="215" class="trend-chart-label">Tue</text>
+            <text x="316" y="215" class="trend-chart-label">Wed</text>
+            <text x="460" y="215" class="trend-chart-label">Thu</text>
+            <text x="603" y="215" class="trend-chart-label">Fri</text>
+            <text x="746" y="215" class="trend-chart-label">Sat</text>
+            <text x="880" y="215" class="trend-chart-label">Sun</text>
+
+            <!-- Area Block A -->
+            <path d="M 40 40 C 88 40, 146 35, 183 35 C 262 35, 320 50, 326 50 C 436 50, 494 45, 470 45 C 610 45, 668 30, 756 30 C 784 30, 842 30, 900 30 L 900 200 L 40 200 Z" fill="url(#area-A)" />
+            <!-- Area Block B -->
+            <path d="M 40 70 C 88 70, 146 65, 183 65 C 262 65, 320 60, 326 60 C 436 60, 494 70, 470 70 C 610 70, 668 60, 756 60 C 784 60, 842 56, 900 56 L 900 200 L 40 200 Z" fill="url(#area-B)" />
+            <!-- Area Block C -->
+            <path d="M 40 100 C 88 100, 146 95, 183 95 C 262 95, 320 90, 326 90 C 436 90, 494 110, 470 110 C 610 110, 668 105, 756 105 C 784 105, 842 104, 900 104 L 900 200 L 40 200 Z" fill="url(#area-C)" />
+            <!-- Area Block D -->
+            <path d="M 40 130 C 88 130, 146 140, 183 140 C 262 140, 320 145, 326 145 C 436 145, 494 135, 470 135 C 610 135, 668 140, 756 140 C 784 140, 842 150, 900 150 L 900 200 L 40 200 Z" fill="url(#area-D)" />
+
+            <!-- Lines -->
+            <!-- Block A: ends around 85% -->
+            <path id="trend-line-A" class="trend-chart-line" stroke="var(--green)" d="M 40 40 C 88 40, 146 35, 183 35 C 262 35, 320 50, 326 50 C 436 50, 494 45, 470 45 C 610 45, 668 30, 756 30 C 784 30, 842 30, 900 30" />
+            <!-- Block B: ends around 72% -->
+            <path id="trend-line-B" class="trend-chart-line" stroke="var(--green-light)" d="M 40 70 C 88 70, 146 65, 183 65 C 262 65, 320 60, 326 60 C 436 60, 494 70, 470 70 C 610 70, 668 60, 756 60 C 784 60, 842 56, 900 56" />
+            <!-- Block C: ends around 48% -->
+            <path id="trend-line-C" class="trend-chart-line" stroke="var(--amber)" d="M 40 100 C 88 100, 146 95, 183 95 C 262 95, 320 90, 326 90 C 436 90, 494 110, 470 110 C 610 110, 668 105, 756 105 C 784 105, 842 104, 900 104" />
+            <!-- Block D: ends around 25% -->
+            <path id="trend-line-D" class="trend-chart-line" stroke="var(--red)" d="M 40 130 C 88 130, 146 140, 183 140 C 262 140, 320 145, 326 145 C 436 145, 494 135, 470 135 C 610 135, 668 140, 756 140 C 784 140, 842 150, 900 150" />
+            
+            <!-- Data points (circles) for Sunday (end) -->
+            <circle cx="900" cy="30" r="5" fill="var(--white)" stroke="var(--green)" stroke-width="3" />
+            <circle cx="900" cy="56" r="5" fill="var(--white)" stroke="var(--green-light)" stroke-width="3" />
+            <circle cx="900" cy="104" r="5" fill="var(--white)" stroke="var(--amber)" stroke-width="3" />
+            <circle cx="900" cy="150" r="5" fill="var(--white)" stroke="var(--red)" stroke-width="3" />
+          </svg>
+          <div style="display: flex; justify-content: center; gap: var(--space-lg); margin-top: var(--space-md); font-size: var(--font-sm);">
+            <div style="display: flex; align-items: center; gap: var(--space-xs);"><span style="display: inline-block; width: 12px; height: 12px; border-radius: 50%; background-color: var(--green);"></span> Block A</div>
+            <div style="display: flex; align-items: center; gap: var(--space-xs);"><span style="display: inline-block; width: 12px; height: 12px; border-radius: 50%; background-color: var(--green-light);"></span> Block B</div>
+            <div style="display: flex; align-items: center; gap: var(--space-xs);"><span style="display: inline-block; width: 12px; height: 12px; border-radius: 50%; background-color: var(--amber);"></span> Block C</div>
+            <div style="display: flex; align-items: center; gap: var(--space-xs);"><span style="display: inline-block; width: 12px; height: 12px; border-radius: 50%; background-color: var(--red);"></span> Block D</div>
+          </div>
+        </div>
+        
+        <div class="widget">
+          <h3 class="widget__title">Block Health</h3>
+          <div class="bloc-map">
+            <div class="bloc-map__item bloc-map__item--green" onmouseover="highlightTrendLine('A')" onmouseout="unhighlightTrendLines()" onclick="goToDiseasesForBlock('Block A')">
+              <div>
+                <span class="bloc-map__label">Block A</span><br>
+                <span class="bloc-map__status">Very healthy</span>
+              </div>
+              <span class="bloc-map__score">85%</span>
+            </div>
+            <div class="bloc-map__item bloc-map__item--green" onmouseover="highlightTrendLine('B')" onmouseout="unhighlightTrendLines()" onclick="goToDiseasesForBlock('Block B')">
+              <div>
+                <span class="bloc-map__label">Block B</span><br>
+                <span class="bloc-map__status">Healthy</span>
+              </div>
+              <span class="bloc-map__score">72%</span>
+            </div>
+            <div class="bloc-map__item bloc-map__item--amber" onmouseover="highlightTrendLine('C')" onmouseout="unhighlightTrendLines()" onclick="goToDiseasesForBlock('Block C')">
+              <div>
+                <span class="bloc-map__label">Block C</span><br>
+                <span class="bloc-map__status">Moderate</span>
+              </div>
+              <span class="bloc-map__score">48%</span>
+            </div>
+            <div class="bloc-map__item bloc-map__item--red" onmouseover="highlightTrendLine('D')" onmouseout="unhighlightTrendLines()" onclick="goToDiseasesForBlock('Block D')">
+              <div>
+                <span class="bloc-map__label">Block D</span><br>
+                <span class="bloc-map__status">Weakened</span>
+              </div>
+              <span class="bloc-map__score">25%</span>
+            </div>
+          </div>
+          <p class="bloc-map__caption" style="margin-top: var(--space-md);">Health score by block (click to filter diseases)</p>
+        </div>
+      </div>
+
+      <div class="distribution-grid">
+        <div class="widget">
+          <h3 class="widget__title">Trees by Block</h3>
+          <ul class="widget__list">
+            <li class="widget__list-item" style="border: none; padding-bottom: 0;">
+              <div style="width: 100%;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: var(--space-xs);">
+                  <span style="font-weight: 600; color: var(--gray-900);">Block A</span>
+                  <span class="text-muted">50</span>
+                </div>
+                <div class="progress-bar"><div class="progress-bar__fill progress-bar__fill--green" style="width: 25%;"></div></div>
+              </div>
+            </li>
+            <li class="widget__list-item" style="border: none; padding-bottom: 0;">
+              <div style="width: 100%;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: var(--space-xs);">
+                  <span style="font-weight: 600; color: var(--gray-900);">Block B</span>
+                  <span class="text-muted">50</span>
+                </div>
+                <div class="progress-bar"><div class="progress-bar__fill progress-bar__fill--green" style="width: 25%;"></div></div>
+              </div>
+            </li>
+            <li class="widget__list-item" style="border: none; padding-bottom: 0;">
+              <div style="width: 100%;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: var(--space-xs);">
+                  <span style="font-weight: 600; color: var(--gray-900);">Block C</span>
+                  <span class="text-muted">50</span>
+                </div>
+                <div class="progress-bar"><div class="progress-bar__fill progress-bar__fill--green" style="width: 25%;"></div></div>
+              </div>
+            </li>
+            <li class="widget__list-item" style="border: none;">
+              <div style="width: 100%;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: var(--space-xs);">
+                  <span style="font-weight: 600; color: var(--gray-900);">Block D</span>
+                  <span class="text-muted">50</span>
+                </div>
+                <div class="progress-bar"><div class="progress-bar__fill progress-bar__fill--green" style="width: 25%;"></div></div>
+              </div>
+            </li>
+          </ul>
+        </div>
+        
+        <div class="widget">
+          <h3 class="widget__title">Fertilizer Stock</h3>
+          <ul class="widget__list">
+            <li class="widget__list-item" style="border: none; padding-bottom: 0;">
+              <div style="width: 100%;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: var(--space-xs);">
+                  <span style="font-weight: 600; color: var(--gray-900);">NPK 15-15-15</span>
+                  <span class="text-muted">85%</span>
+                </div>
+                <div class="progress-bar"><div class="progress-bar__fill progress-bar__fill--green" style="width: 85%;"></div></div>
+              </div>
+            </li>
+            <li class="widget__list-item" style="border: none; padding-bottom: 0;">
+              <div style="width: 100%;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: var(--space-xs);">
+                  <span style="font-weight: 600; color: var(--gray-900);">Urea 46%</span>
+                  <span class="text-muted">30%</span>
+                </div>
+                <div class="progress-bar"><div class="progress-bar__fill progress-bar__fill--amber" style="width: 30%;"></div></div>
+              </div>
+            </li>
+            <li class="widget__list-item" style="border: none;">
+              <div style="width: 100%;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: var(--space-xs);">
+                  <span style="font-weight: 600; color: var(--gray-900);">Potassium Sulfate</span>
+                  <span class="text-muted">15%</span>
+                </div>
+                <div class="progress-bar"><div class="progress-bar__fill progress-bar__fill--red" style="width: 15%;"></div></div>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="widget">
+          <h3 class="widget__title">Maturity Status</h3>
+          <div style="display: flex; align-items: center; gap: 16px; margin-top: var(--space-sm);">
+            <div class="donut-chart" style="width: 100px; height: 100px; background: conic-gradient(var(--green) 0% 15%, var(--gray-300) 15% 45%, var(--amber) 45% 100%); flex-shrink: 0;">
+              <div class="donut-chart__center" style="width: 70px; height: 70px;">
+                <span style="font-weight: 700; font-size: 1rem; color: var(--gray-900);">100%</span>
+              </div>
+            </div>
+            <ul class="donut-chart__legend" style="flex: 1; padding: 0; margin: 0; list-style: none;">
+              <li class="donut-chart__legend-item" style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                <div style="display: flex; align-items: center; gap: var(--space-xs); font-size: 12px;"><span class="donut-chart__legend-dot" style="background: var(--green);"></span> Harvested</div>
+                <strong style="color: var(--gray-900); font-size: 12px;">15%</strong>
+              </li>
+              <li class="donut-chart__legend-item" style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                <div style="display: flex; align-items: center; gap: var(--space-xs); font-size: 12px;"><span class="donut-chart__legend-dot" style="background: var(--gray-300);"></span> Unripe</div>
+                <strong style="color: var(--gray-900); font-size: 12px;">30%</strong>
+              </li>
+              <li class="donut-chart__legend-item" style="display: flex; justify-content: space-between;">
+                <div style="display: flex; align-items: center; gap: var(--space-xs); font-size: 12px;"><span class="donut-chart__legend-dot" style="background: var(--amber);"></span> Ripe</div>
+                <strong style="color: var(--gray-900); font-size: 12px;">55%</strong>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- Screen 1 — Varieties -->
