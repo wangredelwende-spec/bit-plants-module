@@ -8,7 +8,7 @@ SQLite database from scratch.
 
 | File | Purpose |
 |---|---|
-| `schema.sql` | Creates the 7 tables (farms, varieties, growth calendar, fertilizer inventory, disease monitoring, harvests, nursery) and pre-loads the 2025 cohort reference data (Kent, Keitt, Amelie varieties — source: Zalka 2025). |
+| `schema.sql` | Creates the 7 tables (farms, varieties, growth calendar, fertilizer inventory, disease monitoring, harvests, nursery) and pre-loads the 2025 cohort reference data (Keitt variety — source: Zalka 2025). |
 | `plants_class_diagram.mmd` | UML class diagram of the data model (Mermaid format). |
 | `plants.db` | **Not committed to this repository** (see below). This is the actual SQLite database file, generated locally from `schema.sql`. |
 
@@ -61,8 +61,7 @@ This creates `plants.db` in this same folder — which is exactly where
 sqlite3 plants.db "SELECT * FROM varietes;"
 ```
 
-You should see 3 rows: Kent (40,000 kg), Keitt (44,000 kg), and Amelie
-(32,000 kg), all with `source = "Zalka_2025"`.
+You should see exactly 1 row (Keitt only, 44,000 kg) with `source = "Zalka_2025"`.
 
 ## Next step
 

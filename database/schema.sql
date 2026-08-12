@@ -115,8 +115,7 @@ CREATE TABLE pepiniere (
 INSERT INTO fermes (nom, region, pluviometrie_mm_an, type_sol)
 VALUES ('Banfora', 'Cascades', 1100, 'fertile');
 
+-- Kent and Amélie were hypothetical scenarios compared on the same 2ha in Zalka's Table 1, never actual plantations. Keitt is the only real planted variety. Removed from operational data 06/08, schema corrected 11/08.
 INSERT INTO varietes (id_ferme, nom, nombre_arbres, espacement_inter_rang_m, espacement_intra_rang_m, rendement_attendu_kg, bloc_parcelle, source)
 VALUES
-    (1, 'Kent', 200, 8, 8, 40000, 'A', 'Zalka_2025'),
-    (1, 'Keitt', 200, 8, 8, 44000, 'A', 'Zalka_2025'),
-    (1, 'Amelie', 200, 8, 8, 32000, 'A', 'Zalka_2025');
+    (1, 'Keitt', 200, 8, 8, 44000, 'A', 'Zalka_2025');
