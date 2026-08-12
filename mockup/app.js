@@ -1,7 +1,10 @@
 /**
- * Plants Module — App Logic
+ * Plants Module — Mockup (throwaway prototype)
+ * Static UI only: no backend, no API calls, hardcoded data.
+ * Not intended to evolve into the production frontend — a separate,
+ * connected frontend will be built later in its own folder.
+ *
  * Navigation + micro-interactivity (bloc filter, column sort)
- * No backend, no API — purely front-end on static data.
  */
 
 /* ========================================================================
