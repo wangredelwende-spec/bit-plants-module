@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Plants Module — Mockup (throwaway prototype)
  * Static UI only: no backend, no API calls, hardcoded data.
  * Not intended to evolve into the production frontend — a separate,
@@ -531,8 +531,10 @@ function renderScenarioAnalysis() {
     var fmtCur = function (num) { return fmt(num) + ' \u20ac'; };
     var fmtPct = function (num) { return (num > 0 ? '+' : '') + num.toFixed(2) + '%'; };
 
-    // Delta badge — pastel bg + 4px left border using existing CSS modifier classes
-    var getDeltaUI = function (val, isCost) {
+    // Delta badge — pastel bg + 4px left border using existing CSS modifier classes.
+    // val: raw numeric delta (for color logic), isCost: invert green/red,
+    // displayLabel: pre-formatted string to render inside the badge.
+    var getDeltaUI = function (val, isCost, displayLabel) {
       isCost = isCost || false;
       var colorClass = 'task-card--amber';
       var textColor  = 'var(--amber)';
@@ -543,18 +545,17 @@ function renderScenarioAnalysis() {
         colorClass = isCost ? 'task-card--green' : 'task-card--red';
         textColor  = isCost ? 'var(--green)'     : 'var(--red)';
       }
-      var displayVal = (typeof val === 'number')
-        ? ((val > 0 ? '+' : '') + fmt(val))
-        : val;
       return (
         '<div class="task-card ' + colorClass + '"' +
         ' style="padding:2px 8px; margin-top:4px; font-size:var(--font-sm);' +
         ' box-shadow:none; cursor:default; display:inline-block;' +
         ' width:auto; flex:none; transform:none;' +
         ' color:' + textColor + '; font-weight:600; border-radius:var(--radius-sm);">' +
-        displayVal + '</div>'
+        displayLabel + '</div>'
       );
     };
+
+    var sign = function (n) { return (n > 0) ? '+' : ''; };
 
     html +=
       '<div class="widget">' +
@@ -565,28 +566,28 @@ function renderScenarioAnalysis() {
               '<span>Projected Yield</span>' +
               '<span style="font-weight:600;">' + fmt(sYield) + ' kg</span>' +
             '</div>' +
-            getDeltaUI('+' + fmt(deltaYield) + ' kg', false) +
+            getDeltaUI(deltaYield, false, sign(deltaYield) + fmt(deltaYield) + ' kg') +
           '</li>' +
           '<li class="widget__list-item" style="flex-direction:column; align-items:flex-start;">' +
             '<div style="display:flex; justify-content:space-between; width:100%;">' +
               '<span>Projected Revenue</span>' +
               '<span style="font-weight:600;">' + fmtCur(sRevenue) + '</span>' +
             '</div>' +
-            getDeltaUI('+' + fmtCur(deltaRevenue), false) +
+            getDeltaUI(deltaRevenue, false, sign(deltaRevenue) + fmtCur(deltaRevenue)) +
           '</li>' +
           '<li class="widget__list-item" style="flex-direction:column; align-items:flex-start;">' +
             '<div style="display:flex; justify-content:space-between; width:100%;">' +
               '<span>Est. Addt\'l Investment</span>' +
               '<span style="font-weight:600;">' + fmtCur(sInvestment) + '</span>' +
             '</div>' +
-            getDeltaUI('+' + fmtCur(deltaInvestment), true) +
+            getDeltaUI(deltaInvestment, true, sign(deltaInvestment) + fmtCur(deltaInvestment)) +
           '</li>' +
           '<li class="widget__list-item" style="flex-direction:column; align-items:flex-start; border-bottom:none;">' +
             '<div style="display:flex; justify-content:space-between; width:100%;">' +
               '<span>Resulting ROI</span>' +
               '<span style="font-weight:600;">' + sRoi.toFixed(2) + '%</span>' +
             '</div>' +
-            getDeltaUI(fmtPct(deltaRoi), false) +
+            getDeltaUI(deltaRoi, false, fmtPct(deltaRoi)) +
           '</li>' +
         '</ul>' +
       '</div>';
