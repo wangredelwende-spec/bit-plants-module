@@ -1,70 +1,47 @@
-# Plants Module — Database Setup
+# Plants Module — Database
 
-This folder contains the data model for the Plants module (Infineon/BIT
-Excellence Program 2026) and the script needed to generate the working
-SQLite database from scratch.
+Base de données PostgreSQL pour le module Plants (Infineon/BIT Excellence Program 2026).
 
-## Files
+## Fichiers
 
-| File | Purpose |
+| Fichier | Description |
 |---|---|
-| `schema.sql` | Creates the 7 tables (farms, varieties, growth calendar, fertilizer inventory, disease monitoring, harvests, nursery) and pre-loads the 2025 cohort reference data (Keitt variety — source: Zalka 2025). |
-| `plants_class_diagram.mmd` | UML class diagram of the data model (Mermaid format). |
-| `plants.db` | **Not committed to this repository** (see below). This is the actual SQLite database file, generated locally from `schema.sql`. |
+| `init.sql` | Script PostgreSQL exécutable — crée les tables migrées et insère les données de référence. **Source de vérité** pour les tables déjà migrées (`fermes`, `varietes`, `calendrier_croissance`). |
+| `schema.sql` | Ancien schéma SQLite (7 tables). **Référence historique** — les tables non encore migrées (`inventaire_engrais`, `sante_maladies`, `recoltes`, `pepiniere`) y restent comme référence jusqu'à leur migration. |
+| `plants_class_diagram.mmd` | Diagramme de classes UML (format Mermaid). |
 
-## Why `plants.db` is not in the repository
+## Prérequis
 
-`plants.db` is a generated binary file, not source code — committing it
-would cause merge conflicts and make the repo history unreadable. Instead,
-anyone working on this project generates it locally in one command (below).
-This keeps `schema.sql` as the single source of truth for the data
-structure.
+- **PostgreSQL** ≥ 16 installé et service actif
+- Outil `psql` accessible (ex. `C:\Program Files\PostgreSQL\17\bin\psql.exe`)
 
-## Prerequisites
+## Créer / recréer la base
 
-You need the `sqlite3` command-line tool. It is **not included by default
-on Windows**.
+```powershell
+# Créer la base (première fois)
+& "C:\Program Files\PostgreSQL\17\bin\psql.exe" -U postgres -c "CREATE DATABASE plantsdb"
 
-1. Go to https://sqlite.org/download.html
-2. Under **"Precompiled Binaries for Windows"**, download
-   **`sqlite-tools-win-x64-XXXXXXX.zip`**
-   ⚠️ Do not download `sqlite-dll-win-x64...` by mistake — that one only
-   contains a library (`.dll`), not the `sqlite3.exe` command-line tool.
-3. Extract the zip (e.g. to `C:\sqlite`). You should now see `sqlite3.exe`
-   in that folder.
-
-macOS and Linux users usually already have `sqlite3` installed
-(check with `sqlite3 --version` in a terminal).
-
-## Generate the database
-
-From this `database/` folder, run:
-
-```bash
-sqlite3 plants.db < schema.sql
+# Charger le schéma + données
+& "C:\Program Files\PostgreSQL\17\bin\psql.exe" -U postgres -d plantsdb -f "init.sql"
 ```
 
-On Windows, if `sqlite3` is not on your PATH, use the full path to the
-executable instead, for example:
-
-```bash
-C:\sqlite\sqlite3.exe plants.db < schema.sql
+Pour recréer depuis zéro :
+```powershell
+& "C:\Program Files\PostgreSQL\17\bin\psql.exe" -U postgres -c "DROP DATABASE IF EXISTS plantsdb"
+& "C:\Program Files\PostgreSQL\17\bin\psql.exe" -U postgres -c "CREATE DATABASE plantsdb"
+& "C:\Program Files\PostgreSQL\17\bin\psql.exe" -U postgres -d plantsdb -f "init.sql"
 ```
 
-This creates `plants.db` in this same folder — which is exactly where
-`backend/main.py` expects to find it
-(`database/plants.db`, relative to the backend folder).
+## Vérifier
 
-## Verify it worked
+```powershell
+& "C:\Program Files\PostgreSQL\17\bin\psql.exe" -U postgres -d plantsdb -c "SELECT nom, bloc_parcelle FROM varietes;"
+# → Keitt | A
 
-```bash
-sqlite3 plants.db "SELECT * FROM varietes;"
+& "C:\Program Files\PostgreSQL\17\bin\psql.exe" -U postgres -d plantsdb -c "SELECT bloc_parcelle, date_plantation FROM calendrier_croissance;"
+# → A | 2022-03-15
 ```
 
-You should see exactly 1 row (Keitt only, 44,000 kg) with `source = "Zalka_2025"`.
+## Étape suivante
 
-## Next step
-
-Once `plants.db` exists here, go to `../backend/` and follow its own
-README (or run `pip install -r requirements.txt` then `python main.py`)
-to start the API.
+Une fois la base créée, lancez le backend Spring Boot (`backend-spring/README.md`).

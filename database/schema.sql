@@ -1,8 +1,21 @@
 -- ============================================================
 -- Module Plants (manguiers) — Infineon/BIT Excellence Program 2026
--- Base de données : SQLite (migrable vers PostgreSQL, cf. section 6)
+-- Base de données : SQLite (fichier de référence historique)
 -- Auteure : Delwende Esther Wangré
 -- Source de conception : trace de schéma v4 (contexte projet, section 6)
+-- ============================================================
+--
+-- ⚠ ÉTAT DE MIGRATION (août 2026) :
+--   Tables `fermes` et `varietes` → OBSOLÈTES ICI.
+--     Migrées vers PostgreSQL dans database/init.sql (Task 1).
+--   Tables `calendrier_croissance` → OBSOLÈTE ICI.
+--     Migrée vers PostgreSQL dans database/init.sql (Task 2).
+--     Note : le champ `precision_date` figure dans le doc de contexte
+--     (section 1.7) mais est absent de ce fichier — divergence connue,
+--     corrigée dans init.sql.
+--   Tables restantes (inventaire_engrais, sante_maladies, recoltes,
+--     pepiniere) → RÉFÉRENCE ACTIVE tant qu'elles n'ont pas été
+--     migrées à leur tour.
 -- ============================================================
 
 -- Table racine : anticipation multi-site (une ferme = une ligne, jamais codé en dur)
