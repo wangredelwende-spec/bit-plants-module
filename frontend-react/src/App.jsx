@@ -5,6 +5,7 @@ import AppNav from './components/AppNav.jsx';
 import FilterBar from './components/FilterBar.jsx';
 import VarietiesTable from './components/VarietiesTable.jsx';
 import VarietyModal from './components/VarietyModal.jsx';
+import GrowthCalendarScreen from './components/GrowthCalendarScreen.jsx';
 import { LoadingState, ErrorState, EmptyState } from './components/StateMessages.jsx';
 
 /**
@@ -20,7 +21,7 @@ import { LoadingState, ErrorState, EmptyState } from './components/StateMessages
  * - NULL fields → '—' via formatter components
  * - Network error → ErrorState with Retry button (never blank screen)
  */
-export default function App() {
+function VarietiesScreen() {
   const [varieties, setVarieties] = useState([]);
   const [blocs, setBlocs] = useState([]);          // unique bloc values for dropdown
   const [selectedBloc, setSelectedBloc] = useState('');
@@ -74,46 +75,55 @@ export default function App() {
   };
 
   return (
-    <>
-      <title>Plants Module — Variety Management</title>
-      <div className="app-shell">
-        <AppHeader />
-        <div className="app-layout">
-          <AppNav />
-          <main className="main-content">
-            <div className="page-header">
-              <h1 className="page-header__title">Variety Management</h1>
-              <p className="page-header__subtitle">
-                Task 1 — Track and manage mango variety selections across farm blocks
-              </p>
-            </div>
-
-            <FilterBar
-              blocs={blocs}
-              selectedBloc={selectedBloc}
-              onBlocChange={handleBlocChange}
-              onClear={handleClearFilter}
-            />
-
-            <section id="table-section" className="fade-in">
-              {status === 'loading' && <LoadingState />}
-              {status === 'error'   && <ErrorState message={errorMsg} onRetry={handleRetry} />}
-              {status === 'empty'   && <EmptyState />}
-              {status === 'ok'      && (
-                <VarietiesTable
-                  data={varieties}
-                  onRowClick={(id) => setSelectedVarietyId(id)}
-                />
-              )}
-            </section>
-          </main>
-        </div>
+    <main className="main-content">
+      <div className="page-header">
+        <h1 className="page-header__title">Variety Management</h1>
+        <p className="page-header__subtitle">
+          Task 1 — Track and manage mango variety selections across farm blocks
+        </p>
       </div>
+
+      <FilterBar
+        blocs={blocs}
+        selectedBloc={selectedBloc}
+        onBlocChange={handleBlocChange}
+        onClear={handleClearFilter}
+      />
+
+      <section id="table-section" className="fade-in">
+        {status === 'loading' && <LoadingState />}
+        {status === 'error'   && <ErrorState message={errorMsg} onRetry={handleRetry} />}
+        {status === 'empty'   && <EmptyState />}
+        {status === 'ok'      && (
+          <VarietiesTable
+            data={varieties}
+            onRowClick={(id) => setSelectedVarietyId(id)}
+          />
+        )}
+      </section>
 
       <VarietyModal
         varietyId={selectedVarietyId}
         onClose={() => setSelectedVarietyId(null)}
       />
+    </main>
+  );
+}
+
+export default function App() {
+  const [currentScreen, setCurrentScreen] = useState('varieties');
+
+  return (
+    <>
+      <title>Plants Module</title>
+      <div className="app-shell">
+        <AppHeader />
+        <div className="app-layout">
+          <AppNav currentScreen={currentScreen} onNavigate={setCurrentScreen} />
+          {currentScreen === 'varieties' && <VarietiesScreen />}
+          {currentScreen === 'calendar' && <GrowthCalendarScreen />}
+        </div>
+      </div>
     </>
   );
 }

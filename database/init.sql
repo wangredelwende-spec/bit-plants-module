@@ -2,8 +2,8 @@
 -- Module Plants (manguiers) — Infineon/BIT Excellence Program 2026
 -- Base de données : PostgreSQL (migration depuis SQLite schema.sql)
 -- Auteure : Delwende Esther Wangré
--- Périmètre : Task 1 — tables fermes + varietes uniquement
--- Les autres tables (calendrier_croissance, inventaire_engrais, etc.)
+-- Périmètre : Task 1 (fermes + varietes) + Task 2 (calendrier_croissance)
+-- Les autres tables (inventaire_engrais, sante_maladies, recoltes, pepiniere)
 -- seront ajoutées par les tâches correspondantes.
 -- ============================================================
 
@@ -51,3 +51,33 @@ INSERT INTO varietes (id_ferme, nom, nombre_arbres, espacement_inter_rang_m, esp
 VALUES (1, 'Keitt', 200, 8, 8, 44000, 'A', 'Zalka_2025');
 -- Note : vigueur, origine_plant, densite_arbres_ha, rendement_reel_kg restent NULL —
 -- ces données ne sont pas disponibles dans le chiffrage source (Zalka 2025).
+
+-- ============================================================
+-- Tâche 2 : Calendrier de plantation & stades de croissance
+-- age_arbre : NON stocké en base — calculé côté backend depuis
+--   date_plantation à chaque requête (Reliability, section 14).
+-- stade_actuel et phase_annees : valeurs provisoires, les seuils
+--   et la terminologie sont des décisions agronomiques à valider.
+-- precision_date : présent dans le doc de contexte (section 1.7)
+--   mais absent de schema.sql — divergence connue, inclus ici.
+-- ============================================================
+
+CREATE TABLE IF NOT EXISTS calendrier_croissance (
+    id                     SERIAL PRIMARY KEY,
+    id_ferme               INTEGER REFERENCES fermes(id_ferme),
+    bloc_parcelle          VARCHAR(50) NOT NULL,
+    date_plantation        DATE,                -- saisie manuelle, par bloc
+    precision_date         VARCHAR(50),          -- cf. doc contexte section 1.7
+    stade_actuel           VARCHAR(50),          -- provisoire: pepiniere / croissance / production
+    phase_annees           VARCHAR(20),          -- provisoire: 0-2 / 3-5 / 5-7 (calendrier Zalka)
+    pluviometrie_locale_mm REAL,                 -- optionnelle, source externe
+    -- age_arbre : NON stocké, calculé depuis date_plantation (Reliability)
+    source                 VARCHAR(255),
+    date_maj               TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
+);
+
+INSERT INTO calendrier_croissance (id_ferme, bloc_parcelle, date_plantation, stade_actuel, phase_annees, source)
+VALUES (1, 'A', '2022-03-15', 'production', '3-5', 'valeur provisoire à valider');
+-- Note : date_plantation provisoire (dérivée du mockup, pas du chiffrage Zalka).
+-- pluviometrie_locale_mm = NULL : source externe pas encore intégrée.
+-- precision_date = NULL : pas de donnée disponible.
