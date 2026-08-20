@@ -1,0 +1,4 @@
+# Local PostgreSQL credentials — copy this file to application-local.properties
+# and fill in your values. application-local.properties is gitignored.
+spring.datasource.username=YOUR_PG_USERNAME
+spring.datasource.password=YOUR_PG_PASSWORD

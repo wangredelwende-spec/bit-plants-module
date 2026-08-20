@@ -216,3 +216,20 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# ============================================================
+# Spring Boot (backend-spring/)
+# ============================================================
+backend-spring/target/
+backend-spring/*.jar
+*.class
+
+# Local credentials — never commit database passwords
+# (use application-local.properties for local overrides)
+**/application-local.properties
+
+# ============================================================
+# React / Node (frontend-react/)
+# ============================================================
+node_modules/
+frontend-react/dist/

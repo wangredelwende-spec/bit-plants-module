@@ -1,0 +1,90 @@
+// Nav items mirroring frontend/index.html sidebar.
+// Varieties is active; other sections are "coming soon" (disabled).
+const NAV_ITEMS = [
+  {
+    id: 'varieties',
+    label: 'Varieties',
+    active: true,
+    icon: (
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M12 2a10 10 0 1 0 10 10H12V2z" />
+        <path d="M20.7 11A10 10 0 0 0 13 3.3V11h7.7z" />
+      </svg>
+    ),
+  },
+  {
+    id: 'calendar',
+    label: 'Growth Calendar',
+    active: false,
+    icon: (
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+        <line x1="16" y1="2" x2="16" y2="6" />
+        <line x1="8" y1="2" x2="8" y2="6" />
+        <line x1="3" y1="10" x2="21" y2="10" />
+      </svg>
+    ),
+  },
+  {
+    id: 'fertilizers',
+    label: 'Fertilizers',
+    active: false,
+    icon: (
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M2 22l1-1h3l9-9" />
+        <path d="M3 21v-3l9-9" />
+        <circle cx="18" cy="6" r="3" />
+      </svg>
+    ),
+  },
+  {
+    id: 'diseases',
+    label: 'Diseases',
+    active: false,
+    icon: (
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
+      </svg>
+    ),
+  },
+  {
+    id: 'harvest',
+    label: 'Harvest',
+    active: false,
+    icon: (
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
+      </svg>
+    ),
+  },
+  {
+    id: 'nursery',
+    label: 'Nursery',
+    active: false,
+    icon: (
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+      </svg>
+    ),
+  },
+];
+
+export default function AppNav() {
+  return (
+    <nav className="app-nav" aria-label="Main navigation">
+      {NAV_ITEMS.map((item) => (
+        <a
+          key={item.id}
+          href="#"
+          id={`nav-${item.id}`}
+          className={`app-nav__link${item.active ? ' app-nav__link--active' : ' app-nav__link--disabled'}`}
+          title={item.active ? undefined : 'Coming soon'}
+          onClick={(e) => e.preventDefault()}
+        >
+          {item.icon}
+          {item.label}
+        </a>
+      ))}
+    </nav>
+  );
+}
