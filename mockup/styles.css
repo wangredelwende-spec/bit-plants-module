@@ -1096,3 +1096,47 @@ p {
     font-size: 2rem;
   }
 }
+
+/* ==========================================================================
+   Scenario Analysis — Slider & Chart
+   Uses only existing design tokens; zero new colors or fonts.
+   ========================================================================== */
+
+.scenario-slider-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-lg);
+  flex-wrap: wrap;
+}
+
+.scenario-slider-label {
+  font-size: var(--font-md);
+  color: var(--gray-700);
+  min-width: 180px;
+  white-space: nowrap;
+}
+
+.scenario-slider {
+  flex: 1;
+  min-width: 160px;
+  height: 6px;
+  accent-color: var(--green); /* uses existing --green token */
+  cursor: pointer;
+}
+
+.scenario-live-metrics .widget__list-item {
+  border-bottom: 1px solid var(--gray-150);
+  padding-bottom: var(--space-sm);
+  margin-bottom: var(--space-sm);
+}
+
+.scenario-chart {
+  display: block;
+  width: 100%;
+  max-width: 480px;
+  height: auto;
+  background: var(--gray-100);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--gray-300);
+}
+

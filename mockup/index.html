@@ -39,7 +39,7 @@
       <a href="#diseases" class="app-nav__link" data-route="diseases">Diseases</a>
       <a href="#harvest" class="app-nav__link" data-route="harvest">Harvest</a>
       <a href="#nursery" class="app-nav__link" data-route="nursery">Nursery</a>
-      <a href="#whatif" class="app-nav__link" data-route="whatif">What-If Scenario</a>
+      <a href="#scenario-analysis" class="app-nav__link" data-route="scenario-analysis">Scenario Analysis</a>
     </div>
   </nav>
 
@@ -1248,8 +1248,8 @@
       </div>
     </section>
 
-    <!-- Screen 7 — What-If Scenario -->
-    <section id="screen-whatif" class="screen">
+    <!-- Screen 7 — Scenario Analysis -->
+    <section id="screen-scenario-analysis" class="screen">
       <div class="screen__header">
         <div class="screen__title-group">
           <!-- Unique icon for strategy/trending -->
@@ -1259,7 +1259,7 @@
           </svg>
           <div>
             <p class="screen__subtitle">Strategic Planning</p>
-            <h2 class="screen__title">What-If Scenario</h2>
+            <h2 class="screen__title">Scenario Analysis</h2>
           </div>
         </div>
         <button class="btn btn--back" onclick="navigateTo('dashboard')">Home</button>
@@ -1294,11 +1294,41 @@
         </p>
       </div>
 
+      <!-- Interactive slider: illustrative static projection, not real-time data -->
+      <h3 class="section-title">Yield Increase Simulator</h3>
+      <div class="widget" style="margin-bottom: var(--space-xl);">
+        <div class="scenario-slider-row">
+          <label for="yield-slider" class="scenario-slider-label">
+            Yield increase: <strong id="yield-slider-value">10%</strong>
+          </label>
+          <input
+            type="range"
+            id="yield-slider"
+            class="scenario-slider"
+            min="0" max="50" step="1" value="10"
+            oninput="updateScenarioAnalysis(this.value)"
+          >
+        </div>
+        <p class="text-muted" style="font-size: var(--font-sm); margin-top: var(--space-sm);">
+          Illustrative static projection — not real-time data. Move the slider to explore outcomes.
+        </p>
+
+        <!-- Live metric cards updated by JS -->
+        <div id="scenario-live-metrics" class="scenario-live-metrics" style="margin-top: var(--space-lg);"></div>
+
+        <!-- SVG bar chart updated by JS -->
+        <div style="margin-top: var(--space-lg);">
+          <p style="font-size: var(--font-sm); font-weight: 600; color: var(--gray-700); margin-bottom: var(--space-sm);">Revenue & ROI vs Baseline</p>
+          <svg id="scenario-chart" class="scenario-chart" viewBox="0 0 480 160" aria-label="Bar chart comparing baseline and projected revenue and ROI"></svg>
+        </div>
+      </div>
+
       <h3 class="section-title">Production Increase Scenarios</h3>
       <div class="task-grid" id="whatif-scenarios-container">
         <!-- Injected by app.js -->
       </div>
     </section>
+
   </main>
   </div>
 
