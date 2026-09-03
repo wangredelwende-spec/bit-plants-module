@@ -3,11 +3,11 @@
  * Mirror the renderLoading / renderError / renderEmpty functions from frontend/app.js.
  */
 
-export function LoadingState() {
+export function LoadingState({ message = 'Loading data…' }) {
   return (
     <div className="loading">
       <div className="spinner" />
-      <span className="loading__text">Loading variety data…</span>
+      <span className="loading__text">{message}</span>
     </div>
   );
 }
@@ -29,14 +29,12 @@ export function ErrorState({ message, onRetry }) {
   );
 }
 
-export function EmptyState() {
+export function EmptyState({ title = 'No data found', message = 'No records match the current filter.' }) {
   return (
     <div className="state-message state-message--empty">
       <span className="state-message__icon">📭</span>
-      <span className="state-message__title">No varieties found</span>
-      <span className="state-message__text">
-        No variety records match the current filter. Try selecting a different block or clearing the filter.
-      </span>
+      <span className="state-message__title">{title}</span>
+      <span className="state-message__text">{message}</span>
     </div>
   );
 }

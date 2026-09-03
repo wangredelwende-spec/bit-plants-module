@@ -19,17 +19,13 @@ export default function VarietiesTable({ data, onRowClick }) {
       <table className="data-table">
         <thead>
           <tr>
-            <th>Name</th>
-            <th>Trees</th>
-            <th>Spacing (m)</th>
-            <th>Density (/ha)</th>
-            <th>Exp. Yield (kg)</th>
-            <th>Act. Yield (kg)</th>
-            <th>Vigor</th>
+            <th>Variety</th>
             <th>Block</th>
-            <th>Origin</th>
-            <th>Source</th>
-            <th>Last Updated</th>
+            <th>Trees</th>
+            <th>Spacing</th>
+            <th>Expected Yield</th>
+            <th>Actual Yield</th>
+            <th>Vigor</th>
           </tr>
         </thead>
         <tbody>
@@ -40,21 +36,27 @@ export default function VarietiesTable({ data, onRowClick }) {
               onClick={() => onRowClick(row.id)}
             >
               <td><strong>{row.nom}</strong></td>
+              <td><FormatBloc value={row.bloc_parcelle} /></td>
               <td><FormatNumber value={row.nombre_arbres} /></td>
               <td>
                 {row.espacement_inter_rang_m == null && row.espacement_intra_rang_m == null
                   ? <span className="null-value">—</span>
-                  : <>{row.espacement_inter_rang_m ?? '—'} × {row.espacement_intra_rang_m ?? '—'}</>
+                  : <>{row.espacement_inter_rang_m ?? '—'} × {row.espacement_intra_rang_m ?? '—'} m</>
                 }
               </td>
-              <td><FormatNumber value={row.densite_arbres_ha} /></td>
-              <td><FormatNumber value={row.rendement_attendu_kg} /></td>
-              <td><FormatNumber value={row.rendement_reel_kg} /></td>
+              <td>
+                {row.rendement_attendu_kg == null
+                  ? <span className="null-value">—</span>
+                  : <><FormatNumber value={row.rendement_attendu_kg} /> kg</>
+                }
+              </td>
+              <td>
+                {row.rendement_reel_kg == null
+                  ? <span className="null-value">—</span>
+                  : <><FormatNumber value={row.rendement_reel_kg} /> kg</>
+                }
+              </td>
               <td><VigorBadge value={row.vigueur} /></td>
-              <td><FormatBloc value={row.bloc_parcelle} /></td>
-              <td><NullableValue value={row.origine_plant} /></td>
-              <td><NullableValue value={row.source} /></td>
-              <td><FormatDate value={row.date_maj} /></td>
             </tr>
           ))}
         </tbody>

@@ -81,3 +81,39 @@ VALUES (1, 'A', '2022-03-15', 'production', '3-5', 'valeur provisoire à valider
 -- Note : date_plantation provisoire (dérivée du mockup, pas du chiffrage Zalka).
 -- pluviometrie_locale_mm = NULL : source externe pas encore intégrée.
 -- precision_date = NULL : pas de donnée disponible.
+
+-- ============================================================
+-- Tâche 3 : Inventaire des engrais
+-- Colonnes reprises telles que définies dans database/schema.sql
+-- (table historique inventaire_engrais, toujours référence active pour
+-- cette table tant qu'aucune vraie donnée n'a été saisie).
+-- ============================================================
+
+CREATE TABLE IF NOT EXISTS inventaire_engrais (
+    id                       SERIAL PRIMARY KEY,
+    id_ferme                 INTEGER REFERENCES fermes(id_ferme),
+    bloc_parcelle            VARCHAR(50),           -- bloc ciblé par l'application
+    type_engrais             VARCHAR(255) NOT NULL,
+    quantite_stock_kg        REAL,
+    seuil_alerte_kg          REAL,                  -- valeur par défaut prudente, à valider par un agronome
+    date_reapprovisionnement DATE,
+    quantite_appliquee_kg    REAL,                  -- par événement
+    fournisseur              VARCHAR(255),
+    responsable_application  VARCHAR(255),
+    methode_application      VARCHAR(255),
+    source                   VARCHAR(255),
+    date_maj                 TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
+);
+
+-- ⚠ AUCUNE DONNÉE INSÉRÉE ICI, VOLONTAIREMENT.
+-- Contrairement à varietes/calendrier_croissance (chiffrage Zalka 2025), il n'existe
+-- à ce jour aucune vraie donnée d'inventaire d'engrais pour Keitt/Block A (ni ailleurs)
+-- dans ce projet — aucun chiffrage source équivalent à Zalka 2025 n'a été trouvé pour
+-- cette table (voir implementation_plan.md, README.md, database/README.md : aucune
+-- mention). Les quantités affichées dans mockup/index.html (NPK 15-15-15, Urea 46-0-0,
+-- Potassium sulfate, Flowering booster, avec stocks/seuils/dates) sont des données
+-- d'exemple du mockup, pas des données réelles — elles ne sont donc PAS reprises ici.
+-- GET /v1/fertilizer-inventory renverra donc une liste vide tant que cette table reste
+-- vide, ce qui est le comportement attendu (voir rapport final).
+-- Signalé explicitement plutôt que d'inventer des chiffres plausibles, conformément
+-- à la consigne du projet.

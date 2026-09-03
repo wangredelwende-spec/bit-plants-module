@@ -51,7 +51,7 @@ export function FormatBloc({ value }) {
  */
 export function VigorBadge({ value }) {
   if (!value) return <span className="null-value">—</span>;
-  const colorMap = { Forte: 'green', Moyenne: 'amber', Faible: 'red' };
+  const colorMap = { Forte: 'green', Moyenne: 'orange', Faible: 'red' };
   const cls = colorMap[value] || 'gray';
   return <span className={`badge badge--${cls}`}>{value}</span>;
 }
