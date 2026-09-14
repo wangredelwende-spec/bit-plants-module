@@ -4,19 +4,19 @@
 <meta charset="UTF-8">
 <title>Plants — Banfora Farm Dashboard</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
 <style>
   :root{
     --primary:#0a8276;
     --primary-dark:#066258;
     --primary-tint:#e4f2f0;
     --primary-tint-2:#cfe9e5;
-    --orange:#ef6c00;
-    --orange-tint:#fdead9;
-    --red:#c62828;
-    --red-tint:#fbe4e3;
-    --green:#4caf50;
-    --green-tint:#e7f5e8;
+    --orange:#d9a441;
+    --orange-tint:#f8efde;
+    --red:#c1503f;
+    --red-tint:#f7e9e7;
+    --green:#2e9e6b;
+    --green-tint:#e5f7ef;
     --gray-300:#c9d2cf;
     --teal-2:#0d9488;
     --teal-3:#14b8a6;
@@ -65,7 +65,7 @@
   }
   .logo-badge svg{width:100%;height:100%;}
   .module-name{
-    font-family:'IBM Plex Sans',sans-serif;
+    font-family:'Montserrat',sans-serif;
     font-weight:700;
     font-size:12.5px;
     letter-spacing:.05em;
@@ -125,7 +125,7 @@
     box-shadow:0 6px 18px -6px rgba(10,130,118,.45);
   }
   .topbar h1{
-    font-family:'IBM Plex Sans',sans-serif;
+    font-family:'Montserrat',sans-serif;
     font-weight:700;
     font-size:24px;
     color:#fff;
@@ -162,7 +162,7 @@
   .kpi-icon.red{background:var(--red-tint);color:var(--red);}
   .kpi-icon.green{background:var(--green-tint);color:var(--green);}
   .kpi-value{
-    font-family:'IBM Plex Sans',sans-serif;
+    font-family:'Montserrat',sans-serif;
     font-weight:700;
     font-size:22px;
     line-height:1.1;
@@ -191,7 +191,7 @@
     padding:16px 18px 14px 18px;
   }
   .card h3{
-    font-family:'IBM Plex Sans',sans-serif;
+    font-family:'Montserrat',sans-serif;
     font-size:15px;
     font-weight:600;
     margin:0 0 12px 0;
@@ -283,7 +283,7 @@
     text-transform:uppercase;letter-spacing:.05em;margin:0 0 4px 0;
   }
   .screen-title{
-    font-family:'IBM Plex Sans',sans-serif;font-weight:700;font-size:21px;margin:0;color:var(--ink);
+    font-family:'Montserrat',sans-serif;font-weight:700;font-size:21px;margin:0;color:var(--ink);
   }
   .screen-desc{font-size:13px;color:var(--muted);margin:6px 0 0 0;max-width:640px;}
   .btn{
@@ -305,7 +305,7 @@
   }
 
   .section-title{
-    font-family:'IBM Plex Sans',sans-serif;font-size:15px;font-weight:700;
+    font-family:'Montserrat',sans-serif;font-size:15px;font-weight:700;
     margin:24px 0 12px 0;color:var(--ink);
   }
 
@@ -323,9 +323,9 @@
   .text-muted{color:var(--muted);}
 
   .badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700;}
-  .badge--green{background:var(--green-tint);color:#2e7d32;}
-  .badge--amber{background:var(--orange-tint);color:#b45300;}
-  .badge--red{background:var(--red-tint);color:#a31515;}
+  .badge--green{background:var(--green-tint);color:#257e55;}
+  .badge--amber{background:var(--orange-tint);color:#8e661c;}
+  .badge--red{background:var(--red-tint);color:#9a3f32;}
   .badge--gray{background:#eef2f1;color:var(--muted);}
 
   .progress-bar{height:9px;border-radius:6px;background:#eef2f1;overflow:hidden;}
@@ -345,11 +345,11 @@
     border-radius:var(--radius);padding:18px;text-align:center;
   }
   .health-card__bloc{font-weight:600;margin:0 0 6px 0;font-size:13px;color:var(--muted);}
-  .health-card__score{font-family:'IBM Plex Sans',sans-serif;font-weight:700;font-size:28px;margin:0 0 8px 0;}
+  .health-card__score{font-family:'Montserrat',sans-serif;font-weight:700;font-size:28px;margin:0 0 8px 0;}
 
   .alert-callout{
     display:flex;gap:14px;align-items:flex-start;background:var(--red-tint);
-    border:1px solid #f3c6c2;border-radius:var(--radius);padding:16px;margin-bottom:22px;
+    border:1px solid #edcdc8;border-radius:var(--radius);padding:16px;margin-bottom:22px;
   }
   .alert-callout__icon{
     width:38px;height:38px;border-radius:10px;background:#fff;color:var(--red);
@@ -369,7 +369,7 @@
   .alert-callout__timestamp{font-size:11px;color:var(--muted);margin:4px 0 10px 0;}
 
   .widget{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px 18px;}
-  .widget__title{font-family:'IBM Plex Sans',sans-serif;font-size:14px;font-weight:600;margin:0 0 12px 0;}
+  .widget__title{font-family:'Montserrat',sans-serif;font-size:14px;font-weight:600;margin:0 0 12px 0;}
   .widget__list{list-style:none;margin:0;padding:0;}
   .widget__list-item{
     display:flex;justify-content:space-between;align-items:center;
@@ -511,22 +511,22 @@
             <div class="donut-wrap">
               <svg viewBox="0 0 160 160" width="150" height="150">
                 <circle cx="80" cy="80" r="70" fill="none" stroke="#eef2f1" stroke-width="24"/>
-                <circle cx="80" cy="80" r="70" fill="none" stroke="#4caf50" stroke-width="24"
+                <circle cx="80" cy="80" r="70" fill="none" stroke="#2e9e6b" stroke-width="24"
                         stroke-dasharray="65.97 373.83" stroke-dashoffset="0"
                         transform="rotate(-90 80 80)"/>
                 <circle cx="80" cy="80" r="70" fill="none" stroke="#c9d2cf" stroke-width="24"
                         stroke-dasharray="131.94 307.86" stroke-dashoffset="-65.97"
                         transform="rotate(-90 80 80)"/>
-                <circle cx="80" cy="80" r="70" fill="none" stroke="#ef6c00" stroke-width="24"
+                <circle cx="80" cy="80" r="70" fill="none" stroke="#d9a441" stroke-width="24"
                         stroke-dasharray="241.89 197.91" stroke-dashoffset="-197.91"
                         transform="rotate(-90 80 80)"/>
-                <text x="80" y="76" text-anchor="middle" font-family="IBM Plex Sans" font-weight="700" font-size="24" fill="#16241f">200</text>
+                <text x="80" y="76" text-anchor="middle" font-family="Montserrat" font-weight="700" font-size="24" fill="#16241f">200</text>
                 <text x="80" y="96" text-anchor="middle" font-family="Inter" font-weight="500" font-size="11" fill="#5b6b66">trees</text>
               </svg>
               <div class="donut-legend">
-                <div class="donut-legend-item"><span><span class="legend-dot" style="background:#4caf50"></span>Harvested</span><b>15%</b></div>
+                <div class="donut-legend-item"><span><span class="legend-dot" style="background:#2e9e6b"></span>Harvested</span><b>15%</b></div>
                 <div class="donut-legend-item"><span><span class="legend-dot" style="background:#c9d2cf"></span>Unripe</span><b>30%</b></div>
-                <div class="donut-legend-item"><span><span class="legend-dot" style="background:#ef6c00"></span>Ripe</span><b>55%</b></div>
+                <div class="donut-legend-item"><span><span class="legend-dot" style="background:#d9a441"></span>Ripe</span><b>55%</b></div>
               </div>
             </div>
           </div>
@@ -669,7 +669,7 @@
             <circle cx="80" cy="80" r="60" fill="none" stroke="#eef2f1" stroke-width="20"/>
             <circle cx="80" cy="80" r="60" fill="none" stroke="var(--green)" stroke-width="20"
                     stroke-dasharray="356 377" stroke-dashoffset="0" transform="rotate(-90 80 80)"/>
-            <text x="80" y="76" text-anchor="middle" font-family="IBM Plex Sans" font-weight="700" font-size="22" fill="#16241f">94.4%</text>
+            <text x="80" y="76" text-anchor="middle" font-family="Montserrat" font-weight="700" font-size="22" fill="#16241f">94.4%</text>
             <text x="80" y="96" text-anchor="middle" font-family="Inter" font-weight="500" font-size="10" fill="#5b6b66">avg. yield achieved</text>
           </svg>
         </div>
@@ -843,7 +843,7 @@
         <p class="health-card__bloc">Block B</p><p class="health-card__score" style="color:var(--green);">72%</p><span class="badge badge--green">Healthy</span>
       </div>
       <div class="health-card" style="border-top-color:var(--orange);">
-        <p class="health-card__bloc">Block C</p><p class="health-card__score" style="color:var(--orange);">48%</p><span class="badge badge--amber">Moderate</span>
+        <p class="health-card__bloc">Block C</p><p class="health-card__score" style="color:#8e661c;">48%</p><span class="badge badge--amber">Moderate</span>
       </div>
       <div class="health-card" style="border-top-color:var(--red);">
         <p class="health-card__bloc">Block D</p><p class="health-card__score" style="color:var(--red);">25%</p><span class="badge badge--red">Weakened</span>
@@ -855,15 +855,15 @@
       <svg viewBox="0 0 300 170" width="100%" style="max-width:300px;">
         <line x1="10" y1="150" x2="290" y2="150" stroke="#dfe7e5" stroke-width="1"/>
         <rect x="30" y="100" width="60" height="50" rx="4" fill="var(--green)"/>
-        <text x="60" y="92" text-anchor="middle" font-family="IBM Plex Sans" font-weight="700" font-size="14" fill="#16241f">1</text>
+        <text x="60" y="92" text-anchor="middle" font-family="Montserrat" font-weight="700" font-size="14" fill="#16241f">1</text>
         <text x="60" y="164" text-anchor="middle" font-family="Inter" font-size="11" fill="#5b6b66">Treated</text>
 
         <rect x="120" y="50" width="60" height="100" rx="4" fill="var(--orange)"/>
-        <text x="150" y="42" text-anchor="middle" font-family="IBM Plex Sans" font-weight="700" font-size="14" fill="#16241f">2</text>
+        <text x="150" y="42" text-anchor="middle" font-family="Montserrat" font-weight="700" font-size="14" fill="#16241f">2</text>
         <text x="150" y="164" text-anchor="middle" font-family="Inter" font-size="11" fill="#5b6b66">In Progress</text>
 
         <rect x="210" y="50" width="60" height="100" rx="4" fill="var(--red)"/>
-        <text x="240" y="42" text-anchor="middle" font-family="IBM Plex Sans" font-weight="700" font-size="14" fill="#16241f">2</text>
+        <text x="240" y="42" text-anchor="middle" font-family="Montserrat" font-weight="700" font-size="14" fill="#16241f">2</text>
         <text x="240" y="164" text-anchor="middle" font-family="Inter" font-size="11" fill="#5b6b66">Untreated</text>
       </svg>
     </div>
@@ -948,7 +948,7 @@
     <h3 class="section-title">Survival Rate by Lot</h3>
     <div class="mini-grid">
       <div class="mini-card"><h4>P1 · Keitt (Block E)</h4><div class="mini-row"><span class="text-muted">138 / 150 seedlings</span><span style="font-weight:700;color:var(--green);">92%</span></div><div class="progress-bar"><div class="progress-bar__fill progress-bar__fill--green" style="width:92%;"></div></div></div>
-      <div class="mini-card"><h4>P2 · Keitt (Block F)</h4><div class="mini-row"><span class="text-muted">176 / 200 seedlings</span><span style="font-weight:700;color:var(--orange);">88%</span></div><div class="progress-bar"><div class="progress-bar__fill progress-bar__fill--amber" style="width:88%;"></div></div></div>
+      <div class="mini-card"><h4>P2 · Keitt (Block F)</h4><div class="mini-row"><span class="text-muted">176 / 200 seedlings</span><span style="font-weight:700;color:#8e661c;">88%</span></div><div class="progress-bar"><div class="progress-bar__fill progress-bar__fill--amber" style="width:88%;"></div></div></div>
       <div class="mini-card"><h4>P3 · Keitt (Block E)</h4><div class="mini-row"><span class="text-muted">114 / 120 seedlings</span><span style="font-weight:700;color:var(--green);">95%</span></div><div class="progress-bar"><div class="progress-bar__fill progress-bar__fill--green" style="width:95%;"></div></div></div>
       <div class="mini-card"><h4>P4 · Keitt (Block G)</h4><div class="mini-row"><span class="text-muted">72 / 80 seedlings</span><span style="font-weight:700;color:var(--green);">90%</span></div><div class="progress-bar"><div class="progress-bar__fill progress-bar__fill--green" style="width:90%;"></div></div></div>
     </div>
@@ -996,10 +996,10 @@
     <h3 class="section-title">Current Baseline (Zalka 2025)</h3>
     <div class="widget" style="margin-bottom:22px;">
       <div class="scenario-baseline-row">
-        <div class="mini-card" style="text-align:center;"><div class="text-muted" style="font-size:11px;font-weight:700;text-transform:uppercase;">Total Trees</div><div style="font-family:'IBM Plex Sans',sans-serif;font-weight:700;font-size:22px;">200</div></div>
-        <div class="mini-card" style="text-align:center;"><div class="text-muted" style="font-size:11px;font-weight:700;text-transform:uppercase;">Annual Yield</div><div style="font-family:'IBM Plex Sans',sans-serif;font-weight:700;font-size:22px;">44,000 <span style="font-size:12px;color:var(--muted);">kg</span></div></div>
-        <div class="mini-card" style="text-align:center;"><div class="text-muted" style="font-size:11px;font-weight:700;text-transform:uppercase;">Annual Revenue</div><div style="font-family:'IBM Plex Sans',sans-serif;font-weight:700;font-size:22px;">39,918 <span style="font-size:12px;color:var(--muted);">€</span></div></div>
-        <div class="mini-card" style="text-align:center;"><div class="text-muted" style="font-size:11px;font-weight:700;text-transform:uppercase;">Current ROI</div><div style="font-family:'IBM Plex Sans',sans-serif;font-weight:700;font-size:22px;">16.34<span style="font-size:12px;color:var(--muted);">%</span></div></div>
+        <div class="mini-card" style="text-align:center;"><div class="text-muted" style="font-size:11px;font-weight:700;text-transform:uppercase;">Total Trees</div><div style="font-family:'Montserrat',sans-serif;font-weight:700;font-size:22px;">200</div></div>
+        <div class="mini-card" style="text-align:center;"><div class="text-muted" style="font-size:11px;font-weight:700;text-transform:uppercase;">Annual Yield</div><div style="font-family:'Montserrat',sans-serif;font-weight:700;font-size:22px;">44,000 <span style="font-size:12px;color:var(--muted);">kg</span></div></div>
+        <div class="mini-card" style="text-align:center;"><div class="text-muted" style="font-size:11px;font-weight:700;text-transform:uppercase;">Annual Revenue</div><div style="font-family:'Montserrat',sans-serif;font-weight:700;font-size:22px;">39,918 <span style="font-size:12px;color:var(--muted);">€</span></div></div>
+        <div class="mini-card" style="text-align:center;"><div class="text-muted" style="font-size:11px;font-weight:700;text-transform:uppercase;">Current ROI</div><div style="font-family:'Montserrat',sans-serif;font-weight:700;font-size:22px;">16.34<span style="font-size:12px;color:var(--muted);">%</span></div></div>
       </div>
       <p class="text-muted" style="font-size:12.5px;text-align:center;margin-top:10px;">Cost: ~0.22 €/kg · Total Investment: 171,512 € · Payback: ~4.3–5.2 years</p>
     </div>
